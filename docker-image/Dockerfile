@@ -19,6 +19,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     ldap-utils \
     sudo \
     wget \
+    sssd \
+    libpam-sss \
+    libnss-sss \
     cyrus-sasl2-doc \
     fonts-urw-base35 \
     && apt-get install --only-upgrade bash \
