@@ -10,6 +10,9 @@ WORKDIR /var/www/html/
 # Enable apache mods.
 RUN a2enmod  vhost_alias
 
+#Run apt update
+RUN apt-get update 
+
 #configure 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     nscd \
@@ -20,6 +23,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     sudo \
     wget \
     sssd \
+    telnet \
     libpam-sss \
     libnss-sss \
     cyrus-sasl2-doc \
@@ -72,10 +76,6 @@ RUN systemctl enable nslcd.service
 RUN systemctl enable systemd-user-sessions.service
 # Docker startup
 #CMD ["/usr/bin/supervisord"]
-
-#Installing telnet
-RUN apt-get update 
-RUN apt-get install telnet
 
 #Instlling Sendmail packages
 RUN apt-get install -y sendmail
