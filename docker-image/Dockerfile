@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:test-7.4-ubuntu-20.04
+FROM orangehrm/orangehrm-environment-images:test-php-7.4-ubuntu-20.04
 
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
@@ -15,8 +15,11 @@ RUN apt-get update
 
 #configure 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    nscd \
+    openssh-server \
+    openssh-client \
     rsyslog \
+    memcached \
+    supervisor\
     libnss-ldapd \
     libpam-ldap \
     ldap-utils \
@@ -70,12 +73,13 @@ RUN source /etc/apache2/envvars
 RUN yes| rm /usr/lib/tmpfiles.d/systemd-nologin.conf
 
 # Add supervisor conf
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 RUN mkdir -p /var/run/sshd
 #ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-RUN systemctl enable nslcd.service
 RUN systemctl enable systemd-user-sessions.service
 # Docker startup
-#CMD ["/usr/bin/supervisord"]
+CMD ["/usr/bin/supervisord"]
 
 #Instlling Sendmail packages
 RUN apt-get install -y sendmail

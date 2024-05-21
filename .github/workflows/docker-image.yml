@@ -9,8 +9,8 @@ on:
 env:
   REGISTRY: hub.docker.com
   DOCKER_HUB_REPO: "orangehrm/orangehrm-environment-images"
-  TAG_NAME: "uat-7.4-ubuntu-20.04 - final uat image"
-  LATEST_TAG_NAME: "uat-7.4-ubuntu-20.04 - final uat image"
+  TAG_NAME: "uat-7.4-ubuntu-20.04"
+  LATEST_TAG_NAME: "uat-7.4-ubuntu-20.04"
   UPSTREAM_REPO: "orangehrm/orangehrm-test-environment"
   UPSTREAM_BRANCH: "refs/heads/uat-7.4-ubuntu-20.04"
 
@@ -30,14 +30,11 @@ jobs:
           docker-compose --version
           composer --version
 
-      - name: Update composer
-        run : php composer.phar update
-        
       - name: Install test suite dependencies
-        run: composer install
+        run: composer install --ignore-platform-reqs
 
       - name: Build docker image
-        run: docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} --build-arg REDHAT_USERNAME=${{ secrets.REDHAT_USERNAME }} --build-arg REDHAT_PASSWORD=${{ secrets.REDHAT_PASSWORD }} docker-image
+        run: docker build -t ${{ env.DOCKER_HUB_REPO }}:${{ env.TAG_NAME }} docker-image
 
       - name: Spin up the container
         run: |
