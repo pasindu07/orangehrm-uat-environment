@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:test-7.4-ubuntu-20.04
+FROM orangehrm/orangehrm-environment-images:test-php-7.4-ubuntu-20.04
 
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
@@ -10,15 +10,25 @@ WORKDIR /var/www/html/
 # Enable apache mods.
 RUN a2enmod  vhost_alias
 
+#Run apt update
+RUN apt-get update 
+
 #configure 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    nscd \
+    openssh-server \
+    openssh-client \
     rsyslog \
+    memcached \
+    supervisor\
     libnss-ldapd \
     libpam-ldap \
     ldap-utils \
     sudo \
     wget \
+    sssd \
+    telnet \
+    libpam-sss \
+    libnss-sss \
     cyrus-sasl2-doc \
     fonts-urw-base35 \
     && apt-get install --only-upgrade bash \
@@ -63,16 +73,13 @@ RUN source /etc/apache2/envvars
 RUN yes| rm /usr/lib/tmpfiles.d/systemd-nologin.conf
 
 # Add supervisor conf
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 RUN mkdir -p /var/run/sshd
 #ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-RUN systemctl enable nslcd.service
 RUN systemctl enable systemd-user-sessions.service
 # Docker startup
-#CMD ["/usr/bin/supervisord"]
-
-#Installing telnet
-RUN apt-get update 
-RUN apt-get install telnet
+CMD ["/usr/bin/supervisord"]
 
 #Instlling Sendmail packages
 RUN apt-get install -y sendmail
