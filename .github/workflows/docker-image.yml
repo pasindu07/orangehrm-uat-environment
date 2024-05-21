@@ -29,7 +29,10 @@ jobs:
           docker --version
           docker-compose --version
           composer --version
-  
+
+      - name: Update composer
+        run : php composer.phar update
+        
       - name: Install test suite dependencies
         run: composer install
 
