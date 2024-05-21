@@ -11,7 +11,7 @@ env:
   DOCKER_HUB_REPO: "orangehrm/orangehrm-environment-images"
   TAG_NAME: "uat-7.4-ubuntu-20.04"
   LATEST_TAG_NAME: "uat-7.4-ubuntu-20.04"
-  UPSTREAM_REPO: "orangehrm/orangehrm-test-environment"
+  UPSTREAM_REPO: "orangehrm/orangehrm-uat-environment"
   UPSTREAM_BRANCH: "refs/heads/uat-7.4-ubuntu-20.04"
 
 jobs:
