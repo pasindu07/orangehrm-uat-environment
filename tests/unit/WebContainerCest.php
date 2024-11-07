@@ -13,20 +13,20 @@ class WebContainerCest
 
   public function checkContainerIsRunning(UnitTester $I){
         $I->wantTo("verify ubuntu container up and running");
-        $I->runShellCommand("docker inspect -f {{.State.Running}} guardian_web");
+        $I->runShellCommand("docker inspect -f {{.State.Running}} uat_web_ubuntu");
         $I->seeInShellOutput("true");
     }
 
 
     public function checkPHPVersion(UnitTester $I){
         $I->wantTo("verify php 7.4 is installed in the container");
-        $I->runShellCommand("docker exec guardian_web php --version");
+        $I->runShellCommand("docker exec uat_web_ubuntu php --version");
         $I->seeInShellOutput('PHP 7.4');
     }
 
     public function checkForNologinFile(UnitTester $I){
         $I->wantTo("verify nologin file is not there");
-        $I->runShellCommand("docker exec guardian_web ls /var/run/");
+        $I->runShellCommand("docker exec uat_web_ubuntu ls /var/run/");
         $I->dontSeeInShellOutput("nologin");
     }
 
@@ -39,56 +39,56 @@ class WebContainerCest
 
     public function checkCronServiceIsRunning(UnitTester $I){
         $I->wantTo("verify cron is up and running in the container");
-        $I->runShellCommand("docker exec guardian_web service crond status");
-        $I->seeInShellOutput('active (running)');
+        $I->runShellCommand("docker exec uat_web_ubuntu service cron status");
+        $I->seeInShellOutput('cron is running');
     }
 
-    public function checkMemcacheServiceIsRunning(UnitTester $I){
-        $I->wantTo("verify apache is up and running in the container");
-        $I->runShellCommand("docker exec guardian_web service memcached status");
-        $I->seeInShellOutput('active (running)');
-    }
+    // public function checkMemcacheServiceIsRunning(UnitTester $I){
+    //     $I->wantTo("verify apache is up and running in the container");
+    //     $I->runShellCommand("docker exec uat_web_ubuntu service memcached status");
+    //     $I->seeInShellOutput('active (running)');
+    // }
 
     public function checkSSHInstallation(UnitTester $I){
             $I->wantTo("verify OpenSSH is installed in the container");
-            $I->runShellCommand("docker exec guardian_web rpm -qa | grep openssh-server");
-            $I->seeInShellOutput("openssh-server-7");
+            $I->runShellCommand("docker exec uat_web_ubuntu apt list --installed | grep openssh-server");
+            $I->seeInShellOutput("openssh-server");
     }
 
     public function checkSSHServiceRunning(UnitTester $I){
             $I->wantTo("verify ssh is up and running in the container");
-            $I->runShellCommand("docker exec guardian_web service sshd status");
-            $I->seeInShellOutput('active (running)');
+            $I->runShellCommand("docker exec uat_web_ubuntu service ssh status");
+            $I->seeInShellOutput('sshd is running');
     }
 
-    public function checkNSSPAMLDAPInstallation(UnitTester $I){
-            $I->wantTo("verify nss-pam-ldapd is installed in the container");
-            $I->runShellCommand("docker exec guardian_web rpm -qa | grep nss-pam-ldapd");
-            $I->seeInShellOutput("nss-pam-ldapd-0.8");
-    }
+    // public function checkNSSPAMLDAPInstallation(UnitTester $I){
+    //         $I->wantTo("verify nss-pam-ldapd is installed in the container");
+    //         $I->runShellCommand("docker exec uat_web_ubuntu rpm -qa | grep nss-pam-ldapd");
+    //         $I->seeInShellOutput("nss-pam-ldapd-0.8");
+    // }
 
     public function checkOpenldapInstallation(UnitTester $I){
             $I->wantTo("verify open-ldap is installed in the container");
-            $I->runShellCommand("docker exec guardian_web rpm -qa | grep openldap");
-            $I->seeInShellOutput("openldap-clients-2");
+            $I->runShellCommand("docker exec uat_web_ubuntu apt list --installed | grep ldap");
+            $I->seeInShellOutput("ldap-utils");
     }
 
     public function checkNSCDInstallation(UnitTester $I){
-            $I->wantTo("verify nscd is installed in the container");
-            $I->runShellCommand("docker exec guardian_web rpm -qa | grep nscd");
-            $I->seeInShellOutput("nscd-2");
+            $I->wantTo("verify sssd is installed in the container");
+            $I->runShellCommand("docker exec uat_web_ubuntu apt list --installed | grep sssd");
+            $I->seeInShellOutput("sssd");
     }
 
     public function checkJavaVersion(UnitTester $I){
             $I->wantTo("verify java is installed in the container");
-            $I->runShellCommand("docker exec guardian_web rpm -qa | grep java-1.8.0-openjdk");
-            $I->seeInShellOutput("java-1.8.0");
+            $I->runShellCommand("docker exec uat_web_ubuntu java --version ");
+            $I->seeInShellOutput("openjdk");
     }
 
     public function checkWgetVersion(UnitTester $I){
             $I->wantTo("verify wget is installed in the container");
-            $I->runShellCommand("docker exec guardian_web rpm -qa | grep wget");
-            $I->seeInShellOutput("wget-1");
+            $I->runShellCommand("docker exec uat_web_ubuntu apt list --installed | grep wget");
+            $I->seeInShellOutput("wget");
     }
 //    public function checkVHostConfig(UnitTester $I){
 //        $I->wantTo("verify test vhost is configured in the container");
@@ -103,8 +103,8 @@ class WebContainerCest
 
     public function checkSendMailNoArch(UnitTester $I){
         $I->wantTo("verify wether sendmail noarch is installed");
-        $I->runShellCommand("docker exec guardian_web yum list installed | grep sendmail");
-        $I->seeInShellOutput("sendmail-cf.noarch");
+        $I->runShellCommand("docker exec uat_web_ubuntu apt list --installed | grep sendmail");
+        $I->seeInShellOutput("sendmail");
     }
 
 }

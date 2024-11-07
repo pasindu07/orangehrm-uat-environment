@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:test-php-7.4-ubuntu-20.04
+FROM orangehrm/orangehrm-environment-images:test-php-latest-ubuntu-20.04
 
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
@@ -12,11 +12,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     supervisor \
     memcached \
     libmemcached-tools \
-    nscd \
+    sssd \
+    libpam-sss \
+    libnss-sss \
     rsyslog \
-    libnss-ldapd \
-    libpam-ldap \
-    ldap-utils \
     sudo \
     wget \
     cyrus-sasl2-doc \
@@ -72,7 +71,7 @@ RUN yes| rm /usr/lib/tmpfiles.d/systemd-nologin.conf
 # Add supervisor conf
 RUN mkdir -p /var/run/sshd
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-RUN systemctl enable nslcd.service
+RUN systemctl enable sssd
 RUN systemctl enable systemd-user-sessions.service
 
 
