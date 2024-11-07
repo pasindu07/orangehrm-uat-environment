@@ -71,7 +71,7 @@ RUN yes| rm /usr/lib/tmpfiles.d/systemd-nologin.conf
 # Add supervisor conf
 RUN mkdir -p /var/run/sshd
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-RUN systemctl enable nslcd.service
+RUN systemctl enable sssd
 RUN systemctl enable systemd-user-sessions.service
 
 
