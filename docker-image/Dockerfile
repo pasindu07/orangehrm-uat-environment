@@ -12,11 +12,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     supervisor \
     memcached \
     libmemcached-tools \
-    nscd \
+    sssd \
+    libpam-sss \
+    libnss-sss \
     rsyslog \
-    libnss-ldapd \
-    libpam-ldap \
-    ldap-utils \
     sudo \
     wget \
     cyrus-sasl2-doc \
