@@ -77,7 +77,7 @@ RUN systemctl enable systemd-user-sessions.service
 
 #Installing telnet
 RUN apt-get update 
-RUN apt-get install telnet
+RUN apt-get install telnet -y
 
 #Install Sendmail packages
 RUN apt-get install -y sendmail sendmail-cf m4
