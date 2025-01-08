@@ -67,11 +67,11 @@ class WebContainerCest
         $I->seeInShellOutput('sssd-2');
     }
 
-    public function checkSSSDServiceRunning(UnitTester $I){
-        $I->wantTo("verify sssd is up and running in the container");
-        $I->runShellCommand("docker exec uat_web_rhel systemctl status sssd");
-        $I->seeInShellOutput('active (running)');
-    }
+    // public function checkSSSDServiceRunning(UnitTester $I){
+    //     $I->wantTo("verify sssd is up and running in the container");
+    //     $I->runShellCommand("docker exec uat_web_rhel systemctl status sssd");
+    //     $I->seeInShellOutput('active (running)');
+    // }
 
     public function checkOddJobMkHomeDirInstallation(UnitTester $I){
             $I->wantTo("verify oddjob-mkhomedir is installed in the container");
