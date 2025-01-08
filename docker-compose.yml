@@ -31,6 +31,7 @@ services:
     - ./config/ldap/nsswitch.conf:/etc/nsswitch.conf
     - ./config/ldap/nslcd.conf:/etc/nslcd.conf
     - ./config/ldap/sudo-ldap.conf:/etc/sudo-ldap.conf
+    - ./config/sssd/sssd.conf:/etc/sssd/sssd.conf
     privileged: true
     restart: always
     hostname: uat-server-rhel
