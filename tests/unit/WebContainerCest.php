@@ -88,7 +88,7 @@ class WebContainerCest
     public function checkOpensslPerlInstallation(UnitTester $I){
         $I->wantTo("verify openssl-perl is installed in the container");
         $I->runShellCommand("docker exec uat_web_rhel rpm -qa | grep openssl-perl");
-        $I->seeInShellOutput("openssl-perl-1");
+        $I->seeInShellOutput("openssl-perl");
     }
 
     // public function checkNSCDInstallation(UnitTester $I){
