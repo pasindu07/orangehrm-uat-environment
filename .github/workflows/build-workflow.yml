@@ -47,7 +47,16 @@ jobs:
           php vendor/bin/codecept run unit
 
       - name: Get installed php version
-        run: echo "VERSION_TAG_NAME=uat-php-$(docker exec uat_web_rhel php -r 'echo PHP_VERSION;')-rhel-8" >> $GITHUB_ENV
+        run: echo "PHP_VERSION=${{ env.OS_VERSION }}-php$(docker exec $(docker ps --format '{{.Names}}' | head -n 1) php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
+
+      - name: Set TAG_NAME with date
+        run: |
+          CURRENT_DATE=$(date +'%d%m%y')
+          echo VERSION_TAG_NAME="${{ env.PHP_VERSION }}-${CURRENT_DATE}" >> $GITHUB_ENV
+
+      - name: Copy the report file
+        run: |
+            docker cp $(docker ps --format '{{.Names}}' | head -n 1):/var/installed_packages_detailed_report.txt  installed_packages_detailed_report.txt
 
       - name: New image with a version tag & latest tag
         run: |
