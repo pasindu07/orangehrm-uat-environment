@@ -9,11 +9,11 @@ on:
 
 env:
   REGISTRY: hub.docker.com
-  DOCKER_HUB_REPO: "orangehrm/orangehrm-environment-images"
-  TAG_NAME: "uat-php-7.4.19-rhel-8"
-  LATEST_TAG_NAME: "uat-php-latest-rhel-8"
+  DOCKER_HUB_REPO: "orangehrm/uat-environment"
+  LATEST_TAG_NAME: "rhel9-php8.2-latest"
   UPSTREAM_REPO: "orangehrm/orangehrm-uat-environment"
-  UPSTREAM_BRANCH: "refs/heads/php-7.4-rhel-8"
+  UPSTREAM_BRANCH: "refs/heads/php-8.2-rhel-9"
+  OS_VERSION: "rhel9"
 
 jobs:
 
