@@ -9,11 +9,11 @@ on:
 
 env:
   REGISTRY: hub.docker.com
-  DOCKER_HUB_REPO: "orangehrm/orangehrm-environment-images"
-  TAG_NAME: "uat-php-7.4-ubuntu-20.04"
-  LATEST_TAG_NAME: "uat-php-latest-ubuntu-20.04"
+  DOCKER_HUB_REPO: "orangehrm/uat-environment"
+  LATEST_TAG_NAME: "ubuntu24.04-php8.3-latest"
   UPSTREAM_REPO: "orangehrm/orangehrm-uat-environment"
-  UPSTREAM_BRANCH: "refs/heads/php-7.4-ubuntu-20.04"
+  UPSTREAM_BRANCH: "refs/heads/php-8.3-ubuntu-24.04"
+  OS_VERSION: "ubuntu24.04"
 
 jobs:
 
